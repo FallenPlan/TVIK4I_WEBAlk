@@ -1,0 +1,3 @@
+-Futtatni kell a programot
+-Fel kell menni a http://localhost:8080/swagger-ui/index.html oldalra
+-Felül a https://petstore.swagger.io/v2/swagger.json helyére be kell írni ezt: http://localhost:8080/v3/api-docs
