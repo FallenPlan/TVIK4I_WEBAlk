@@ -1,0 +1,3 @@
+-run the application
+-search on the browser this: "localhost:8080/c"
+-you will get a "hello" text
