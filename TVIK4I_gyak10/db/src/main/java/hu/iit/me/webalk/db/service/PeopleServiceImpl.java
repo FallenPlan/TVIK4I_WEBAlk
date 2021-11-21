@@ -43,14 +43,6 @@ public class PeopleServiceImpl implements PeopleService {
         }
     }
 
-//    @Override
-//    public hu.iit.me.webalk.db.service.People create(hu.iit.me.webalk.db.service.People people) {
-//    return new hu.iit.me.webalk.db.service.People(peopleRepository.save(people.toEntity()));
-//        peopleRepository.save(people.toEntity());
-//
-//        return null;
-//    }
-
     @Override
     public People getById(Long id) {
         Optional<hu.iit.me.webalk.db.repository.People> optionalPeople = peopleRepository.findById(id);
