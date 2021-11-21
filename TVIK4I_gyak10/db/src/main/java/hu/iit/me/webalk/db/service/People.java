@@ -31,13 +31,12 @@ public class People {
         this.name = name;
     }
 
-    public hu.iit.me.webalk.db.repository.People toPeople() {
-        return new hu.iit.me.webalk.db.repository.People(age, id, name);
+    public People() {
     }
 
-    public People(Long id, int age, String name) {
-        this.id = id;
+    public People(int age, Long id, String name) {
         this.age = age;
+        this.id = id;
         this.name = name;
     }
 

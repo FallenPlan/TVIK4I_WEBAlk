@@ -1,9 +1,9 @@
 package hu.iit.me.webalk.db.controller;
 
-import hu.iit.me.webalk.db.repository.People;
+import hu.iit.me.webalk.db.service.People;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 public class PeopleCreateDto {
 
@@ -14,19 +14,11 @@ public class PeopleCreateDto {
         this.age = people.getAge();
         this.name = people.getName();
     }
-    private Long id;
+
     @NotEmpty
     private String name;
-    @Size(min=18)
+    @Min(18)
     private int age;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

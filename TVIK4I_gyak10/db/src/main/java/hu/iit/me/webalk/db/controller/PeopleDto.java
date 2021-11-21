@@ -2,9 +2,8 @@ package hu.iit.me.webalk.db.controller;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
-import hu.iit.me.webalk.db.repository.People;
+import hu.iit.me.webalk.db.service.People;
 
 public class PeopleDto {
 
@@ -12,6 +11,7 @@ public class PeopleDto {
     }
 
     public PeopleDto(People people) {
+        this.id = people.getId();
         this.age = people.getAge();
         this.name = people.getName();
     }

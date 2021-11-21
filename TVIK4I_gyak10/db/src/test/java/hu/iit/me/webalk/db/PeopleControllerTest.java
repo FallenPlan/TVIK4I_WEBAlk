@@ -9,11 +9,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -22,10 +22,6 @@ public class PeopleControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-//    public PeopleControllerTest(MockMvc mockMvc) {
-//        this.mockMvc = mockMvc;
-//    }
 
     @Autowired
     private PeopleRepository peopleRepository;
@@ -49,7 +45,8 @@ public class PeopleControllerTest {
         this.mockMvc.perform(get("/people"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string("[{\"id\":1,\"name\":\"1\",\"age\":12}]));
+                .andExpect(jsonPath("$.[0].name", is("1")))
+                .andExpect(jsonPath("$.[0].age", is(12)));
 
     }
 
@@ -65,15 +62,9 @@ public class PeopleControllerTest {
         this.mockMvc.perform(get("/people"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string("[{\"id\":1,\"name\":\"2\",\"age\":22}]));
+                .andExpect(jsonPath("$.[0].name", is("2")))
+                .andExpect(jsonPath("$.[0].age", is(22)));
 
-    }
-
-    @Test
-    public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/"))
-                .andDo(print())
-                .andExpect(status().is4xxClientError());
     }
 
 }

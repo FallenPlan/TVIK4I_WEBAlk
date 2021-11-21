@@ -3,7 +3,6 @@ package hu.iit.me.webalk.db.repository;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Optional;
 
 @Entity
 public class People {
@@ -14,10 +13,6 @@ public class People {
     private int age;
 
     private String name;
-
-    public People(People people) {
-        
-    }
 
     public Long getId() {
         return id;
@@ -43,8 +38,6 @@ public class People {
         this.name = name;
     }
 
-
-
     public People(int age, Long id,String name) {
         this.age = age;
         this.id = id;
@@ -52,8 +45,5 @@ public class People {
     }
 
     public People() {
-    }
-
-    public Object toEntity() {
     }
 }

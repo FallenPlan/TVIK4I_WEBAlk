@@ -3,7 +3,7 @@ package hu.iit.me.webalk.db.controller;
 import org.springframework.web.bind.annotation.*;
 
 import hu.iit.me.webalk.db.service.PeopleService;
-import hu.iit.me.webalk.db.repository.People;
+import hu.iit.me.webalk.db.service.People;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -47,9 +47,13 @@ public class PeopleController {
         peopleService.save(peopleDto.toPeople());
     }
 
-    @PutMapping
-    Iterable<PeopleDto> findAdultPeople(@RequestParam PeopleDto peopleDto) {
-        peopleService.save(peopleDto.toPeople());
+    @GetMapping("/findByAgeGt")
+    Iterable<PeopleDto> findAdultPeople(@RequestParam("age") int age) {
+        List<hu.iit.me.webalk.db.controller.PeopleDto> peopleDtoList = new ArrayList<>();
+        for (People people : peopleService.findByAgeGreaterThan(age)) {
+            peopleDtoList.add(new hu.iit.me.webalk.db.controller.PeopleDto(people));
+        }
+        return peopleDtoList;
     }
 
 }

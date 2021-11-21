@@ -1,7 +1,5 @@
 package hu.iit.me.webalk.db.service;
 
-import hu.iit.me.webalk.db.repository.People;
-import hu.iit.me.webalk.db.service.PeopleService;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -20,25 +18,11 @@ public class PeopleServiceImpl implements PeopleService {
         this.peopleRepository = peopleRepository;
     }
 
-    public People create(People people) {
-        return new People(peopleRepository.save(people.toEntity()));
-    }
-
-    @Override
-    public People getById(Long id) {
-        return null;
-    }
-
-    @Override
-    public void delete(Long id) {
-        peopleRepository.delete(id);
-    }
-
     @Override
     public Iterable<People> getAllPeople() {
         List<People> rv = new ArrayList<>();
 
-        for (People people: peopleRepository.findAll()) {
+        for (hu.iit.me.webalk.db.repository.People people: peopleRepository.findAll()) {
             rv.add(new People(people));
         }
 
@@ -55,23 +39,23 @@ public class PeopleServiceImpl implements PeopleService {
         try {
             peopleRepository.deleteById(id);
         } catch (EmptyResultDataAccessException ex) {
-            throw NoSuchEntityException();
+            throw new NoSuchEntityException(id);
         }
     }
 
-    @Override
-    public hu.iit.me.webalk.db.service.People create(hu.iit.me.webalk.db.service.People people) {
-    return new hu.iit.me.webalk.db.service.People(peopleRepository.save(people.toEntity()));
-        peopleRepository.save(people.toEntity());
-
-        return null;
-    }
+//    @Override
+//    public hu.iit.me.webalk.db.service.People create(hu.iit.me.webalk.db.service.People people) {
+//    return new hu.iit.me.webalk.db.service.People(peopleRepository.save(people.toEntity()));
+//        peopleRepository.save(people.toEntity());
+//
+//        return null;
+//    }
 
     @Override
     public People getById(Long id) {
-        Optional<hu.iit.me.webalk.db.repository.People> optionalPeople = peopleRepository.findById();
+        Optional<hu.iit.me.webalk.db.repository.People> optionalPeople = peopleRepository.findById(id);
                 if(optionalPeople.isEmpty()) {
-                    throw new NoSuchEntityException();
+                    throw new NoSuchEntityException(id);
                 }
         return new People(optionalPeople.get());
     }
@@ -86,7 +70,11 @@ public class PeopleServiceImpl implements PeopleService {
     }
 
     @Override
-    public Iterable<? extends People> findByAgeGreaterThan
+    public Iterable<? extends People> findByAgeGreaterThan(int age) {
+        return StreamSupport.stream(peopleRepository.findAllByAgeGreaterThanEqual(age).spliterator(), false)
+                .map(People::new)
+                .collect(Collectors.toList());
+    }
 
     public Iterable<People> getAllPeople2() {
         return StreamSupport.stream(peopleRepository.findAll().spliterator(), false)
