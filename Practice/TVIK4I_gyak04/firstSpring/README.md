@@ -1,0 +1,3 @@
+-futtatni kell a programot
+-böngészőbe be kell írni ezt: "http://localhost:8080/swagger-ui/index.html#/"
+-a "https://petstore.swagger.io/v2/swagger.json" helyére be kell írni ezt: "http://localhost:8080/v3/api-docs"
