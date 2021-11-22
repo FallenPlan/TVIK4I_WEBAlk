@@ -1,1 +1,1 @@
--run alltests with coverage and see the code test coverage statistics
+-run all tests with coverage and see the code test coverage statistics
